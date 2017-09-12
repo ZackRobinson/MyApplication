@@ -28,6 +28,7 @@ import android.widget.SimpleCursorAdapter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.example.zack.myapplication.R.layout.fragment_custom_alertdialog;
 
@@ -64,9 +65,10 @@ public class ListViewActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
         FragmentManager fm = getFragmentManager();
-        ImageDialogFragment dialogFragment = new ImageDialogFragment ();
+        final ImageDialogFragment dialogFragment = new ImageDialogFragment ();
         dialogFragment.show(fm, "Sample Fragment");
-        Timer timer = new Timer();
+        final Timer t = new Timer();
+        t.schedule(new TimerTask() {public void run() {dialogFragment.dismiss(); t.cancel();}}, 3000);
     }
 
 
